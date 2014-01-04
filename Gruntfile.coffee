@@ -45,15 +45,22 @@ module.exports = (grunt) ->
       development:
         files:
           "server/client_build/development/stylesheets/main.css": "client/scss/main.scss"
+
+    coffee:
+      development:
+        files:
+          "server/client_build/development/javascript/main.js": ["#{APP_PATH}/coffee/*.coffee"]
+        options:
+          join: true
     
     watch:
       sass:
         files: ["client/scss/*.scss"]
-        tasks: 'sass:development' 
+        tasks: 'sass:development'
       coffee:
-        files: "#{SERVER_PATH}/*.coffee"
-        tasks: 'express:development'
-        
+        files: ["#{SERVER_PATH}/*.coffee", "#{APP_PATH}/coffee/*.coffee"]
+        tasks: ['express:development', 'coffee:development']
+                  
   grunt.registerTask 'test', [
     'development'
     'express:test'
@@ -62,6 +69,7 @@ module.exports = (grunt) ->
     
   grunt.registerTask 'development', [
     'sass:development'
+    'coffee:development'
   ]     
         
   grunt.registerTask 'default', [

@@ -1,10 +1,10 @@
 extends layout
 
 block content
-  .row.l_left-row
-    .col-md-12
-      h1 public#index
+    h1 HackerAtom
+    p Havn't you tried to use your favourate feed reader to subscribe Hacker News? Have you found it gives you too many feeds to read?
+    p Now let's generate a Atom feed just for top stories!
 
-  .row.l_title-container.s_title-container.l_left-row
-    .col-md-12
-      p You can edit me in server/templates/public/index.jade
+    p 
+        b Subscribe:
+        input#atom_url(value=atom_url, readonly='readonly')

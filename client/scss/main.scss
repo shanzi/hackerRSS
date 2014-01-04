@@ -1,16 +1,33 @@
-@import "vendor/bootstrap.scss";
-@import "gatekeeper.scss";
+@import url(http://fonts.googleapis.com/css?family=Abel);
 
 html, body {
   height: 100%;
+  font-family: 'Abel','Helvetica Neue', sans-serif;
+  text-align: justify;
+}
+
+body {
+    background-color: #d35400;
+    color:white;
 }
 
 #wrap {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -45px;
-  padding: 50px 0 45px;
+  width:320px;
+  margin:20px auto 20px;
+}
+
+#atom_url {
+    display:block;
+    width:100%;
+    margin:5px 0;
+    height:30px;
+    font-size:25px;
+    border:none;
+    text-align:center;
+    color:#d35400;
 }
 
 #footer {

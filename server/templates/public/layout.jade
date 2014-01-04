@@ -1,28 +1,15 @@
 !!!
 html
   head
-    title App
+    title HackerAtom
     link(href="/assets/stylesheets/main.css", rel='stylesheet', type='text/css')
+    link(href="/atom", rel='alternate', type='application/atom+xml')
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
   body
     #wrap
-      .container
-        .navbar.navbar-default.navbar-fixed-top
-          .navbar-header
-            a(href='/').navbar-brand Brand
-          .collapse.navbar-collapse
-            ul.nav.navbar-nav
-              li
-                a(href='/') Home
-              li
-                a(href='/about') About
-              li
-                a(href='/account') Account                
-      
-        //- yield content
         block content
         
-    #footer
-      .container.l_footer-container.s_footer-container
-        p &copy;2014 Abraham Lincoln: Web Developer
+        footer#footer
+            p &copy;2014 Chase Zhang
+  script(src="/assets/javascript/main.js")
