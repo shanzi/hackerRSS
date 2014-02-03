@@ -70,7 +70,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'development', [
     'sass:development'
     'coffee:development'
-  ]     
+  ]
         
   grunt.registerTask 'default', [
     # 'env:development'

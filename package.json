@@ -6,12 +6,12 @@
     "underscore": "~1.5.1",
     "express": "3.0.0rc5",
     "querystring": "*",
-    "mongoose": "3.6.15",
-    "passport": "0.1.17",
-    "passport-local": "0.1.6",
     "bcrypt": "0.7.6",
     "feed": "0.2.5",
-    "mysql-activerecord":"0.8.3" 
+    "mysql-activerecord": "0.8.3",
+    "request": "~2.21.0",
+    "cheerio": "~0.13.1",
+    "node-readability": "~0.2.1"
   },
   "devDependencies": {
     "grunt": "~0.4.0rc7",
@@ -26,10 +26,8 @@
     "chai": "~1.7.0",
     "grunt-mocha-test": "0.6.2",
     "jade": "~0.30.0",
-    "request": "~2.21.0",
     "grunt-express": "~1.0.0-beta2",
-    "grunt-env": "0.4.0",
-    "request-json": "*"
+    "grunt-env": "0.4.0"
   },
   "description": "hackeratom ==========",
   "directories": {
@@ -50,5 +48,6 @@
   "license": "BSD",
   "bugs": {
     "url": "https://github.com/shanzi/hackeratom/issues"
-  }
+  },
+  "main": "index.js"
 }
