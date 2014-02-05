@@ -29,5 +29,6 @@ app.configure ->
   
 # public routes
 app.get '/', publicController.index
+app.get '/atom', publicController.atom
 
 module.exports = app

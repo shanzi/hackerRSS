@@ -1,4 +1,5 @@
 record = require '../models/record'
+readability = require 'node-readability'
 
 fetchJob = {}
 
@@ -8,11 +9,11 @@ cheerio = require 'cheerio'
 retries = 0
 
 
-parseSubmit = (title, rank, datetime)->
+parseFeed = (title, rank, datetime)->
     linkObj = title.children('a')
     if not linkObj.length
         return null
-    else if linkObj.text().match(/More/ig)
+    else if linkObj.text().match(/^More$/ig)
         return -1
     link = linkObj.attr 'href'
     titleText = linkObj.text()
@@ -31,38 +32,59 @@ parseSubmit = (title, rank, datetime)->
     rank: rank
     datetime: datetime
 
-handleArticle = (obj) ->
-    id = obj.id
-    record.get id, (result) =>
-        if result
-            record.logRank obj
-        else
-            record.addFeed obj
-
 
 parseHackerNewsBody = (body, datetime) ->
     $ = cheerio.load(body)
     titles = $('td.title')
-    rank = 0
+    rank = 1
+    feeds = []
     for index, title of titles
-        rank += 1
-        parsedTitle = parseSubmit($(title), rank, datetime)
-        if parsedTitle == -1
+        parsedFeed = parseFeed($(title), rank, datetime)
+        if parsedFeed == -1
             break
-        else if parsedTitle
-            handleArticle parsedTitle
+        else if parsedFeed
+            rank += 1
+            feeds.push parsedFeed
+    ids = (feed.id for feed in feeds)
+    record.gets ids, (results) =>
+        old_ids = (feed.id for feed in results)
+        for feed in feeds
+            if feed.id in old_ids
+                record.logRank feed
+            else
+                record.addFeed feed
 
-fetchHackNews = ->
+fetchHackNews = (retries) ->
+    retries = retries ? 1
     datetime = record.now()
     request.get 'https://news.ycombinator.com/', (error, response, body) =>
-        console.log 'request HN front page finished'
         if (!error && response.statusCode==200)
-            retries = 0
+            console.log 'request HN front page finished'
             parseHackerNewsBody(body, datetime)
-        else if retries >= 10
-            console.error 'Fetch hackernews failed' 
         else
-            retries+=1
+            console.error 'Fetch hackernews failed: (' + retries + '/10)'
+            retries += 1
+            fetchHackNews(retries) if retries <= 10
 
 
-fetchHackNews()
+makeFeed = (feed) ->
+    readability feed.url, (err, article) =>
+        if err or article.content == false
+            content = "<a href='#{feed.url}' >#{feed.url}</a>"
+        else
+            content = article.content
+        feed.content = content
+        feed.accepted_at = record.now()
+        record.update(feed.id, feed)
+
+
+select_top_feeds = ->
+    timelimit = new Date()
+    timelimit.setHours(timelimit.getHours() - 4)
+    record.feedAfter timelimit, (rs) ->
+        if rs.length
+            makeFeed rs[0]
+
+
+#fetchHackNews()
+select_top_feeds()

@@ -7,7 +7,7 @@
     "express": "3.0.0rc5",
     "querystring": "*",
     "bcrypt": "0.7.6",
-    "feed": "0.2.5",
+    "xml": "0.0.12",
     "mysql-activerecord": "0.8.3",
     "request": "~2.21.0",
     "cheerio": "~0.13.1",
