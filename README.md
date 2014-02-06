@@ -1,4 +1,4 @@
-hackeratom
+hackerRSS
 ==========
 
-A hacker news atom generator
+A hacker news RSS feed generator

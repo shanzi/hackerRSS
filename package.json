@@ -1,5 +1,5 @@
 {
-  "name": "hackeratom",
+  "name": "hackerRSS",
   "version": "0.0.1",
   "dependencies": {
     "coffee-script": "~1.6.2",
@@ -31,7 +31,7 @@
     "grunt-express": "~1.0.0-beta2",
     "grunt-env": "0.4.0"
   },
-  "description": "hackeratom ==========",
+  "description": "a hacker news rss feed generator",
   "directories": {
     "test": "test"
   },
@@ -40,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/shanzi/hackeratom.git"
+    "url": "git://github.com/shanzi/hackerrss.git"
   },
   "keywords": [
     "HackerNews",
@@ -49,7 +49,7 @@
   "author": "Chase Zhang",
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/shanzi/hackeratom/issues"
+    "url": "https://github.com/shanzi/hackerrss/issues"
   },
   "main": "index.js"
 }

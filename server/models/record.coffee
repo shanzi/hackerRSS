@@ -5,7 +5,7 @@ db = new mysql_db.Adapter(
     server: process.env.MYSQL_SERVER ? 'localhost'
     username: process.env.MYSQL_USERNAME ? 'root'
     password: process.env.MYSQL_PASSWORD ? ''
-    database: process.env.HACKER_ATOM_DB_NAME ? 'hackeratom')
+    database: process.env.HACKER_ATOM_DB_NAME ? 'hackerrss')
 
 
 feedTableQuery = "
