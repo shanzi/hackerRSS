@@ -2,7 +2,6 @@ express = require 'express'
 
 
 ASSET_BUILD_PATH = 'server/client_build/development'
-PORT = process.env.PORT ? 3000
 WHITELISTED_URLS = ['/favicon.ico']
 
 # controllers

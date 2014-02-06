@@ -6,7 +6,7 @@ publicController = {}
 # home page '/'
 publicController.index = (req, res) ->
     hostname = req.host
-    rss_url = "#{req.host}/rss"
+    rss_url = "hackernews.io-meter.com/rss"
     res.render 'public/index', {'rss_url': rss_url}
 
 publicController.rss = (req, res) ->
@@ -18,7 +18,7 @@ publicController.rss = (req, res) ->
     console.log 'build feed'
     feed = new Feed(
         title:'HackerRSS'
-        description:'Convert articles from hackernews into RSS feed. see http://' + req.host
+        description:'Convert articles from hackernews into RSS feed. see http://hackerrss.iometer.com'
         link:req.host
     )
     record.feeds (feeds) =>
