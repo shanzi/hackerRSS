@@ -11,7 +11,9 @@
     "mysql-activerecord": "0.8.3",
     "request": "~2.21.0",
     "cheerio": "~0.13.1",
-    "node-readability": "~0.2.1"
+    "node-readability": "~0.2.1",
+    "node-schedule": "~0.1.13",
+    "node-simple-cache": "~0.2.1"
   },
   "devDependencies": {
     "grunt": "~0.4.0rc7",

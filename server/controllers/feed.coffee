@@ -1,4 +1,9 @@
+storage = require 'node-simple-cache'
 xml = require 'xml'
+
+
+cache = new storage.Storage()
+
 class Feed extends Object
 
     constructor: (args) ->
@@ -40,6 +45,14 @@ class Feed extends Object
             {'sy:updateFrequency':@updateFrequency}
         ]
         channel = channel: feedInfo.concat @items
-        xml rss: [_attr:attr, channel]
+        rendered = xml rss: [_attr:attr, channel]
+        cache.set 'rss', rendered
+        return rendered
+
+    @cachedFeed: ->
+        cache.get 'rss'
+
+    @invalideCachedFeed: ->
+        cache.set 'rss', ''
 
 module.exports = Feed

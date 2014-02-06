@@ -1,5 +1,8 @@
-record = require '../models/record'
 readability = require 'node-readability'
+schedule = require 'node-schedule'
+
+record = require '../models/record'
+Feed = require '../controllers/feed'
 
 fetchJob = {}
 
@@ -76,15 +79,23 @@ makeFeed = (feed) ->
         feed.content = content
         feed.accepted_at = record.now()
         record.update(feed.id, feed)
+        console.log 'new feed selected:', feed
+        Feed.invalideCachedFeed()
 
 
-select_top_feeds = ->
+selectTopFeeds = ->
     timelimit = new Date()
     timelimit.setHours(timelimit.getHours() - 4)
     record.feedAfter timelimit, (rs) ->
+        console.log rs
         if rs.length
             makeFeed rs[0]
 
+job = {}
+job.schedule =  ->
+    job.fetchJob = schedule.scheduleJob minute:[10, 30, 50], fetchHackNews
+    job.selectJob = schedule.scheduleJob minute:0, selectTopFeeds
+    console.log 'jobs scheduled'
 
-#fetchHackNews()
-select_top_feeds()
+
+module.exports = job

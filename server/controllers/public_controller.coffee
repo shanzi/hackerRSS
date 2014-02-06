@@ -6,13 +6,18 @@ publicController = {}
 # home page '/'
 publicController.index = (req, res) ->
     hostname = req.host
-    atom_url = "#{req.host}/atom"
-    res.render 'public/index', {'atom_url': atom_url}
+    rss_url = "#{req.host}/rss"
+    res.render 'public/index', {'rss_url': rss_url}
 
-publicController.atom = (req, res) ->
+publicController.rss = (req, res) ->
     res.type "text/xml"
+    feed = Feed.cachedFeed()
+    if feed and feed.length
+        return res.send feed
+
+    console.log 'build feed'
     feed = new Feed(
-        title:'HackerAtom'
+        title:'HackerRSS'
         description:'Convert articles from hackernews into atom feeds. see http://' + req.host
         link:req.host
     )
@@ -23,7 +28,7 @@ publicController.atom = (req, res) ->
                 title:f.title
                 link:f.url
                 creator:f.user
-                pubDate:f.created_at
+                pubDate:f.accepted_at
                 content: f.content
                 guid:guid
                 comments:guid

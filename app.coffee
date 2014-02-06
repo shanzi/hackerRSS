@@ -1,5 +1,4 @@
 express = require 'express'
-passport = require 'passport'
 
 
 ASSET_BUILD_PATH = 'server/client_build/development'
@@ -8,6 +7,7 @@ WHITELISTED_URLS = ['/favicon.ico']
 
 # controllers
 publicController = require './server/controllers/public_controller'
+job = require './server/jobs/feed_job'
 
 app = express()
 app.configure ->
@@ -22,13 +22,13 @@ app.configure ->
   # needed for body parsing and session usage
   app.use express.cookieParser()
   app.use express.bodyParser()
-  app.use passport.initialize()
   
   # logging
   app.use express.logger()
   
 # public routes
 app.get '/', publicController.index
-app.get '/atom', publicController.atom
+app.get '/rss', publicController.rss
 
+job.schedule()
 module.exports = app

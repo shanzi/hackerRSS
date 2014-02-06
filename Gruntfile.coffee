@@ -58,7 +58,7 @@ module.exports = (grunt) ->
         files: ["client/scss/*.scss"]
         tasks: 'sass:development'
       coffee:
-        files: "#{SERVER_PATH}/*.coffee"
+        files: ["#{SERVER_PATH}/*.coffee", "#{APP_PATH}/coffee/*.coffee"]
         tasks: ['express:development', 'coffee:development']
                   
   grunt.registerTask 'test', [

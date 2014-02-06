@@ -1,10 +1,8 @@
 extends layout
 
 block content
-    h1 HackerAtom
-    p Havn't you tried to use your favourate feed reader to subscribe Hacker News? Have you found it gives you too many feeds to read?
-    p Now let's generate a Atom feed just for top stories!
-
+    h1 HackerRSS
+    p Would you like to subscribe Hacker News as RSS feed with your favourite reader? Be afraid of too many feeds to read?
+    p Now subscribe this RSS feed only for top stories!
     p 
-        b Subscribe:
-        input#atom_url(value=atom_url, readonly='readonly')
+        input#rss_url(value=rss_url, readonly='readonly')
