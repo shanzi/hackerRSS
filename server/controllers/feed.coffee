@@ -20,8 +20,8 @@ class Feed extends Object
             {title:args.title},
             {link:args.link},
             {description:{_cdata:args.description ? args.content}},
-            {'content:encoded':{_cdata:args.content}},
             {'dc:creator':args.creator},
+            {author:args.creator},
             {pubDate:args.pubDate.toUTCString()},
             {guid:[_attr:{isPermalink:false}, args.guid]},
             {comments:args.comments ? ''}
@@ -31,7 +31,6 @@ class Feed extends Object
     render: ->
         attr =
             version:'2.0'
-            'xmlns:content':'http://purl.org/rss/1.0/modules/content/'
             'xmlns:wfw':'http://wellformedweb.org/CommentAPI/'
             'xmlns:dc':'http://purl.org/dc/elements/1.1/'
             'xmlns:atom':'http://www.w3.org/2005/Atom'
@@ -42,8 +41,14 @@ class Feed extends Object
             {link:@link},
             {description:@description},
             {'sy:updatePeriod':@updatePeriod},
-            {'sy:updateFrequency':@updateFrequency}
+            {'sy:updateFrequency':@updateFrequency},
+            {language:'en-US'}
         ]
+        if @items and @items.length
+            firstItem = @items[0]
+            for pair in firstItem.item
+                if pair.pubDate
+                    feedInfo.push {pubDate:pair.pubDate}
         channel = channel: feedInfo.concat @items
         rendered = xml rss: [_attr:attr, channel]
         cache.set 'rss', rendered

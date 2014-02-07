@@ -143,7 +143,7 @@ updateFeed = (id, feedObj) ->
         return failed err if err
 
 feeds = (callback) ->
-    db.where('content IS NOT NULL').order_by('accepted_at').get 'feed_record', (err, res) ->
+    db.where('content IS NOT NULL').order_by('accepted_at DESC').limit(30).get 'feed_record', (err, res) ->
         callback res
 
 record = {}

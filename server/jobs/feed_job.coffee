@@ -72,11 +72,15 @@ fetchHackNews = (retries) ->
 
 makeFeed = (feed) ->
     readability feed.url, (err, article) =>
+        hn_line = "<div><b>HN:</b>
+                    avg rank #{feed.avg} |
+                    by <a href='https://news.ycombinator.com/user?id=#{feed.user}'>#{feed.user}</a> |
+                    <a href='https://news.ycombinator.com/item?id=#{feed.id}'>comments</a></div><hr>"
         if err or article.content == false
             content = "<a href='#{feed.url}' >#{feed.url}</a>"
         else
             content = article.content
-        feed.content = content
+        feed.content = hn_line + content
         feed.accepted_at = record.now()
         record.update(feed.id, feed)
         console.log 'new feed selected:', feed
@@ -87,14 +91,13 @@ selectTopFeeds = ->
     timelimit = new Date()
     timelimit.setHours(timelimit.getHours() - 4)
     record.feedAfter timelimit, (rs) ->
-        console.log rs
         if rs.length
             makeFeed rs[0]
 
 job = {}
 job.schedule =  ->
     job.fetchJob = schedule.scheduleJob minute:[10, 30, 50], fetchHackNews
-    job.selectJob = schedule.scheduleJob minute:0, selectTopFeeds
+    job.selectJob = schedule.scheduleJob minute:5, selectTopFeeds
     console.log 'jobs scheduled'
 
 
