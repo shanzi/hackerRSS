@@ -19,7 +19,7 @@ publicController.rss = (req, res) ->
     feed = new Feed(
         title:'HackerRSS'
         description:'Convert articles from hackernews into RSS feed. see http://hackerrss.io-meter.com'
-        link:req.host
+        link:'http://hackerrss.io-meter.com/'
     )
     record.feeds (feeds) =>
         for f in feeds
