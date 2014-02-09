@@ -39,6 +39,7 @@ class Feed extends Object
         feedInfo = [
             {title:@title},
             {link:@link},
+            {'atom:link':[_attr:{href:@link,ref:'self',type:'application/rss+xml'}]},
             {description:@description},
             {'sy:updatePeriod':@updatePeriod},
             {'sy:updateFrequency':@updateFrequency},
