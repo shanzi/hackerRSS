@@ -116,6 +116,7 @@ getFeedAfter = (limit, callback) ->
                 return failed err if err
                 scores = {}
                 counts = {}
+                top = {}
                 for obj in results
                     hn_id = obj.hn_id
                     score = obj.rank
@@ -125,10 +126,13 @@ getFeedAfter = (limit, callback) ->
                     else
                         counts[hn_id] = 1
                         scores[hn_id] = score
+                    if not top[hn_id] or top[hn_id] > obj.rank
+                        top[hn_id] = obj.rank
                 for rs in feed_results
                     rs.count = counts[rs.id] ? 1
                     rs.avg = scores[rs.id] / rs.count ? 999999
-                    rs.score = rs.avg * (if rs.count <4 then (4/rs.count) else 1)
+                    rs.top = top[hn_id] ? 9999999
+                    rs.score = rs.avg * (if rs.count <4 then (4/rs.count) else 1) + rs.top
                 feed_results.sort (a, b) ->
                     a.score - b.score
                 callback(feed_results)
