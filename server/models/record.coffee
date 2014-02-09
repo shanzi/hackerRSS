@@ -131,8 +131,8 @@ getFeedAfter = (limit, callback) ->
                 for rs in feed_results
                     rs.count = counts[rs.id] ? 1
                     rs.avg = scores[rs.id] / rs.count ? 999999
-                    rs.top = top[hn_id] ? 9999999
-                    rs.score = rs.avg * (if rs.count <4 then (4/rs.count) else 1) + rs.top
+                    rs.top = top[rs.id] ? 9999999
+                    rs.score = rs.top + rs.avg * (if rs.count <4 then (4/rs.count) else 1)
                 feed_results.sort (a, b) ->
                     a.score - b.score
                 callback(feed_results)
