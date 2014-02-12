@@ -17,9 +17,9 @@ publicController.rss = (req, res) ->
 
     console.log 'build feed'
     feed = new Feed(
-        title:'HackerRSS'
-        description:'Convert articles from hackernews into RSS feed. see http://hackerrss.io-meter.com'
-        link:'http://hackerrss.io-meter.com/'
+        title:'Hacker News -> RSS'
+        description:'Convert articles from hackernews into RSS feed. see http://hackernews.io-meter.com'
+        link:'http://hackernews.io-meter.com/'
     )
     record.feeds (feeds) =>
         for f in feeds

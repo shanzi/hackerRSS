@@ -44,6 +44,7 @@ class Feed extends Object
             {'sy:updatePeriod':@updatePeriod},
             {'sy:updateFrequency':@updateFrequency},
             {language:'en-US'}
+            {ttl:60}
         ]
         if @items and @items.length
             firstItem = @items[0]
