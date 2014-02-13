@@ -75,14 +75,23 @@ makeFeed = (feed) ->
         hn_line = "<div><b>HN:</b>
                     top rank #{feed.top} |
                     by <a href='https://news.ycombinator.com/user?id=#{feed.user}'>#{feed.user}</a> |
-                    <a href='https://news.ycombinator.com/item?id=#{feed.id}'>comments</a></div><hr>"
+                    <a href='https://news.ycombinator.com/item?id=#{feed.id}'>comments</a></div>
+                    <hr>
+                    "
+
         if err or article.content == false
             content = "<a href='#{feed.url}' >#{feed.url}</a>"
         else
+            hn_title = feed.title.replace(/\s/g, '').toLowerCase()
+            original_title = article.title.replace(/\s/g, '').toLowerCase()
+            if hn_title != original_title
+                hn_line += "<div>(Original Title: #{article.title})</div>"
             content = article.content
+            content += "<div>[link]:<a href='#{feed.url}'>#{feed.url}</a></div>"
         feed.content = hn_line + content
         feed.accepted_at = record.now()
         record.update(feed.id, feed)
+        console.log feed
         console.log 'new feed selected:', feed
         Feed.invalideCachedFeed()
 
@@ -99,6 +108,9 @@ job.schedule =  ->
     job.fetchJob = schedule.scheduleJob minute:[10, 30, 50], fetchHackNews
     job.selectJob = schedule.scheduleJob minute:0, selectTopFeeds
     console.log 'jobs scheduled'
+
+job.selectJobF = selectTopFeeds
+job.fetchHackNewsF = fetchHackNews
 
 
 module.exports = job
