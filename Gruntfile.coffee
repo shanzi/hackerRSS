@@ -46,6 +46,18 @@ module.exports = (grunt) ->
         files:
           "server/client_build/development/stylesheets/main.css": "client/scss/main.scss"
 
+    copy:
+      development:
+        files:[
+            {
+              expand: true
+              cwd:'client/'
+              src: [
+                'images/**'
+              ]
+              dest: 'server/client_build/development/'
+            }]
+
     coffee:
       development:
         files:
@@ -68,6 +80,7 @@ module.exports = (grunt) ->
   ]
     
   grunt.registerTask 'development', [
+    'copy:development'
     'sass:development'
     'coffee:development'
   ]

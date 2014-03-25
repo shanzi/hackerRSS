@@ -2,7 +2,7 @@ readability = require 'node-readability'
 schedule = require 'node-schedule'
 
 record = require '../models/record'
-Feed = require '../controllers/feed'
+makeFeed = require './fetch_content'
 
 fetchJob = {}
 
@@ -68,32 +68,6 @@ fetchHackNews = (retries) ->
             console.error 'Fetch hackernews failed: (' + retries + '/10)'
             retries += 1
             fetchHackNews(retries) if retries <= 10
-
-
-makeFeed = (feed) ->
-    readability feed.url, (err, article) =>
-        hn_line = "<div><b>HN:</b>
-                    top rank #{feed.top} |
-                    by <a href='https://news.ycombinator.com/user?id=#{feed.user}'>#{feed.user}</a> |
-                    <a href='https://news.ycombinator.com/item?id=#{feed.id}'>comments</a></div>
-                    <hr>
-                    "
-
-        if err or article.content == false
-            content = "<a href='#{feed.url}' >#{feed.url}</a>"
-        else
-            hn_title = feed.title.replace(/\s/g, '').toLowerCase()
-            original_title = article.title.replace(/\s/g, '').toLowerCase()
-            if hn_title != original_title
-                hn_line += "<div>(Original Title: #{article.title})</div>"
-            content = article.content
-            content += "<div>[link]:<a href='#{feed.url}'>#{feed.url}</a></div>"
-        feed.content = hn_line + content
-        feed.accepted_at = record.now()
-        record.update(feed.id, feed)
-        console.log feed
-        console.log 'new feed selected:', feed
-        Feed.invalideCachedFeed()
 
 
 selectTopFeeds = ->
