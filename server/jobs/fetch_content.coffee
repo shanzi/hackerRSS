@@ -63,12 +63,10 @@ github = (feed, callback) ->
                 <h2>
                 <img src='http://hackernews.io-meter.com/assets/images/github.png' width='30' height='29'>
                 #{title}
-                </hw>
-                <pre>
+                </h2>
+                <p>
                 #{desc} #{website ? ''}
-                </pre>
-                <hr/>
-                </hr>
+                </p>
                 <p><b>README:</b></p>
                 <hr/>
                 <div>
