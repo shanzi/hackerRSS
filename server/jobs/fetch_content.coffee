@@ -60,12 +60,12 @@ github = (feed, callback) ->
                 title.find('.page-context-loader').remove()
                 title = title.html()
                 content = "
-                <h1>
+                <h2>
                 <img src='http://hackernews.io-meter.com/assets/images/github.png' width='30' height='29'>
                 #{title}
-                </h1>
+                </hw>
                 <pre>
-                #{desc} #{website}
+                #{desc} #{website ? ''}
                 </pre>
                 <hr/>
                 </hr>
