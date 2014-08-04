@@ -6,6 +6,9 @@ cheerio = require 'cheerio'
 
 read = (feed, callback) ->
     url = feed.url
+    if url and not url.match /^(\w*:)?\/\/.*/
+      url = url.trim()
+      url = 'https://news.ycombinator.com/' + url
     readability url, (err, article) =>
         content = null
         if err or article.content == false
