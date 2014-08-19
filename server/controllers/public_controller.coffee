@@ -24,6 +24,8 @@ publicController.rss = (req, res) ->
     record.feeds (feeds) =>
         for f in feeds
             guid = "http://news.ycombinator.com/?item=#{f.id}"
+            f.url = f.url.trim()
+            f.url = "http://news.ycombinator.com/#{f.url}" if not f.url.match /^(\w+:)?\/\/.+/
             feed.addItem(
                 title:f.title
                 link:f.url
