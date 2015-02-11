@@ -22,7 +22,7 @@ parseFeed = (title, rank, datetime)->
     titleText = linkObj.text()
     next = title.parent().next()
     subLinks = next.find('a')
-    if subLinks.length == 2
+    if subLinks.length >= 2
         user = subLinks.eq(0).text()
         id = parseInt subLinks.eq(1).attr('href')[8..]
     else
