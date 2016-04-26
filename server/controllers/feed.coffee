@@ -52,7 +52,8 @@ class Feed extends Object
                 if pair.pubDate
                     feedInfo.push {pubDate:pair.pubDate}
         channel = channel: feedInfo.concat @items
-        rendered = xml rss: [_attr:attr, channel]
+        feed = rss: [_attr:attr, channel]
+        rendered = xml feed, declaration: true
         cache.set 'rss', rendered
         return rendered
 
